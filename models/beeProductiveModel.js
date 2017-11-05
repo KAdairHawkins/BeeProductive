@@ -31,6 +31,7 @@ function awardBug(bugNumber){
     //do a SQL statement;
 };
 
+//when someone clicks the Start Button, run this.
 startCounter();
 
 if (counter < 5){

@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/KAdairHawkins/BeeProductive/issues"
   },
-  "homepage": "https://github.com/KAdairHawkins/BeeProductive#readme"
+  "homepage": "https://github.com/KAdairHawkins/BeeProductive#readme",
+  "dependencies": {
+    "sequelize": "^4.22.5"
+  }
 }
