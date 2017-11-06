@@ -31,7 +31,7 @@ router.get('/contact', function(req,res){
 router.put('/bug/update', function(req,res){
     var id = req.body.bugId;
     console.log(req.body.bugId);
-    burger.update(id, function(result){
+    db.bug.update(id, function(result){
         console.log(result);
         res.redirect('/')
     });
@@ -39,7 +39,7 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
-    burger.create(req.body, function(result){
+    db.bug.create(req.body, function(result){
         console.log(result);
         res.redirect("/")
     });
