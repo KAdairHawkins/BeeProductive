@@ -10,6 +10,27 @@ router.get('/', function(req,res){
     })*/
 });
 
+router.get('/about', function(req,res){
+    res.send("This is the about page.")
+    /*db.bug.select(function(bug_data){
+        
+    })*/
+});
+
+router.get('/pricing', function(req,res){
+    res.send("This is the pricing page.")
+    /*db.bug.select(function(bug_data){
+        
+    })*/
+});
+
+router.get('/contact', function(req,res){
+    res.send("This is the contact page.")
+    /*db.bug.select(function(bug_data){
+        
+    })*/
+});
+
 router.put('/burgers/update', function(req,res){
     var id = req.body.burger_id;
     console.log(req.body.burger_id);
