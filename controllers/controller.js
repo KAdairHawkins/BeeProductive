@@ -4,7 +4,7 @@ var router = express.Router();
 var path = require('path');
 
 router.get('/', function(req,res){
-    burger.select(function(burger_data){
+    db.bug.select(function(bug_data){
         res.sendFile(path.join(__dirname, "index.html"))
     })
 });
