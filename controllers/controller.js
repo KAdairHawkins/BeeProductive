@@ -4,9 +4,10 @@ var router = express.Router();
 var path = require('path');
 
 router.get('/', function(req,res){
-    db.bug.select(function(bug_data){
-        res.sendFile(path.join(__dirname, "index.html"))
-    })
+    res.sendFile(path.join(__dirname, "index.html"))
+    /*db.bug.select(function(bug_data){
+        
+    })*/
 });
 
 router.put('/burgers/update', function(req,res){
