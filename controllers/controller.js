@@ -1,11 +1,11 @@
 var express = require('express');
 var db = require("../models");
 var router = express.Router();
+var path = require('path');
 
 router.get('/', function(req,res){
     burger.select(function(burger_data){
-        console.log(burger_data);
-        res.render('index',{burger_data});
+        res.sendFile(path.join(__dirname, "view.html"))
     })
 });
 
