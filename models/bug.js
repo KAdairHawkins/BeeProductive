@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     //Provided by the user
     foundAtDescription: DataTypes.TEXT,
     //The moment that the bug was discovered
-    foundAtTime: DataTypes.DATE
+    foundAtTime: DataTypes.DATE,
     //the cost of the bug
     value: DataTypes.INTEGER,
     //how long it took the user to find the bug
