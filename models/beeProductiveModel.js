@@ -28,7 +28,13 @@ function counterTest(){
 
 function awardBug(bugNumber){
     console.log("You got Bug Number " + bugNumber);
+    /* Input Sanitization
+    if(inputName.indexOf(";") !== -1 || inputDescription.indexOf(";") !== -1){
+        cussOutUser()
+    } else {
     //do a SQL statement;
+    }
+    */
 };
 
 //when someone clicks the Start Button, run this.
