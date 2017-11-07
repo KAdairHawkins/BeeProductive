@@ -11,9 +11,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
-app.use(express.static(__dirname + '/public'));
-
-<link rel='stylesheet' href='/style.css' />
 
 app.use(methodOverride('_method'));
 app.engine('handlebars', exphbs({
