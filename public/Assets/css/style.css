@@ -1,5 +1,5 @@
 body {
-    background: url('../Images/wallpaper3.jpg') no-repeat center center fixed;
+      background: url('../Images/wallpaper3.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -7,9 +7,9 @@ body {
       margin-bottom: 0px;
 }
 
-#navbar {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-bottom: 100px;
+h1 {
+    color: yellow;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
 button.btn.btn-success {
