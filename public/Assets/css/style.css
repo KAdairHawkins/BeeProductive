@@ -23,3 +23,7 @@ h1 {
     color: yellow;
     text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
+
+.modal {
+  margin-top: 10%;
+}
