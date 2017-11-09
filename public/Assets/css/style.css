@@ -16,6 +16,7 @@ body {
 #contactForm {
   background-color: #343a40;
   color: yellow;
+  border-radius: 25px;
 }
 
 h1 {
