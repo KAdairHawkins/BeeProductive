@@ -2,6 +2,7 @@ var counter = 0;
 var randomBugNumber;
 var Sequelize = require('sequelize');
 
+
 function timer(){
     function countUp(){
         counter++;
@@ -29,6 +30,7 @@ function timer(){
 
     function awardBug(bugNumber){
         console.log("You got Bug Number " + bugNumber);
+
         /* Input Sanitization
         if(inputName.indexOf(";") !== -1 || inputDescription.indexOf(";") !== -1){
             cussOutUser()
