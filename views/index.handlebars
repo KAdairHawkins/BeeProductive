@@ -3,9 +3,9 @@
     <div class="col-4">
     </div>
     <div class="col-4">
-       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+       <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
     Sign In
-    </button>
+  </button> Put into navbar -->
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -18,7 +18,7 @@
           </button>
         </div>
         <div class="modal-body">
-          User Name: <input type="text" userName="firstname" value="" size="20"> <!-- the size is a type of user validations -->
+          User Name: <input type="text" userName="firstname" value="" size="20" id="userName"> <!-- the size is a type of user validations -->
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-warning btn-lg btn-block">Enter</button>
@@ -71,7 +71,7 @@
     $("#exampleModal").modal("show");
   })
   $("#saveButton").click(function(){
-    var user = {username: $("#userSelect").val()}
+    var user = {username: $("#userName").val()}
     $("#exampleModal").modal("toggle");
     $.post("/user", user, function(data) {
     });
