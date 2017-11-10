@@ -21,7 +21,7 @@
           User Name: <input type="text" userName="firstname" value="" size="20" id="userName"> <!-- the size is a type of user validations -->
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-warning btn-lg btn-block">Enter</button>
+            <button type="button" class="btn btn-warning btn-lg btn-block" id="enter">Enter</button>
         </div>
         <div>
             <a href="#">Haven't started your bug collection yet? Click Here!</a>
@@ -70,7 +70,7 @@
   $(document).ready(function(){
     $("#exampleModal").modal("show");
   })
-  $("#saveButton").click(function(){
+  $("#enter").click(function(){
     var user = {username: $("#userName").val()}
     $("#exampleModal").modal("toggle");
     $.post("/user", user, function(data) {
