@@ -2,6 +2,9 @@ var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
+var username = "asdf";
+process.env.username = username;
+console.log(process.env.username);
 
 //Web page entry
 router.get('/', function(req,res){
@@ -25,6 +28,7 @@ router.get('/pricing', function(req,res){
 
 //Get the contact page
 router.get('/contact', function(req,res){
+    console.log(username);
     res.render("contact", {});
 
 });
@@ -47,5 +51,11 @@ router.post("/bug/create", function(req,res){
         res.redirect("/");
     });
 });
+
+router.post("/user", function(req,res){
+    username = req.body.username;
+    console.log(username);
+    res.send(username);
+})
 
 module.exports = router; 

@@ -42,6 +42,9 @@
     $("#loginModal").modal("show");
   })
   $("#saveButton").click(function(){
-    alert($("#userSelect").val());
+    var user = {username: $("#userSelect").val()}
+    $("#loginModal").modal("toggle");
+    $.post("/user", user, function(data) {
+    });
   })
 </script>
