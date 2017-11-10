@@ -68,11 +68,11 @@
 </div class="container">
 <script>
   $(document).ready(function(){
-    $("#loginModal").modal("show");
+    $("#exampleModal").modal("show");
   })
   $("#saveButton").click(function(){
     var user = {username: $("#userSelect").val()}
-    $("#loginModal").modal("toggle");
+    $("#exampleModal").modal("toggle");
     $.post("/user", user, function(data) {
     });
   })
