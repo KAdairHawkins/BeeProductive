@@ -18,7 +18,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="exampleSelect1">Choose User</label>
-                <select class="form-control" id="exampleSelect1">
+                <select class="form-control" id="userSelect">
                   <option>Adair</option>
                   <option>Eric</option>
                   <option>Kim</option>
@@ -40,5 +40,9 @@
 <script>
   $(document).ready(function(){
     $("#loginModal").modal("show");
+  })
+  $("#saveButton").click(function(){
+    process.env.username = $("#userSelect").val();
+    alert(process.env.username);  
   })
 </script>
