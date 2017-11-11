@@ -2,20 +2,21 @@ var counter = 0;
 var randomBugNumber;
 var Sequelize = require('sequelize');
 var db = require("../models/");
+var router = require("./controller.js");
 var timer = {
     countUp: function (){
         counter++;
         console.log(counter);
         if(counter>2){
-            timer.stopCounter()
+            timer.stop()
         };
     }
 
-    , startCounter: function (){
+    , start: function (){
         timerInterval= setInterval(timer.countUp, 1000);
     }
 
-    , stopCounter: function (){
+    , stop: function (){
         clearInterval(timerInterval);
         console.log("Stopping");
         randomBugNumber = Math.random();
@@ -58,7 +59,11 @@ var timer = {
 
     , awardBug: function (bugNumber){
         console.log("You got Bug Number " + bugNumber);
-
+        var queryUrl = "/api/bugs/" + bugNumber;
+        console.log(queryUrl);
+        router.get(queryUrl, function(data){
+            console.log(data)
+        });
         /* Input Sanitization
         if(inputName.indexOf(";") !== -1 || inputDescription.indexOf(";") !== -1){
             cussOutUser()
