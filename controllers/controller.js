@@ -38,7 +38,18 @@ router.get('/contact', function(req,res){
 router.get("/api/bugs/", function(req, res) {
     db.Bug.findAll({})
     .then(function(dbBug) {
-      res.json(dbBug);
+      res.json(dbBug);  
+    });
+  });
+
+//get one bug
+router.get("/api/bugs/:id", function(req, res) {
+    var id = req.params.id;
+    db.Bug.findAll({
+        where: {id: id}
+    })
+    .then(function(dbBug) {
+      res.json(dbBug);  
     });
   });
 
