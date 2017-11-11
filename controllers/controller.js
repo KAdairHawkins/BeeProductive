@@ -34,6 +34,14 @@ router.get('/contact', function(req,res){
 
 });
 
+//get all bugs
+router.get("/api/bugs/", function(req, res) {
+    db.Bug.findAll({})
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
 //Update a bug
 router.put('/bug/update', function(req,res){
     //pull the ID out of the body

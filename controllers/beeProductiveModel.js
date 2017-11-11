@@ -69,4 +69,4 @@ var timer = {
     }
 };
 
-timer.startCounter();
+module.exports = timer;
