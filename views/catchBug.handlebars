@@ -145,14 +145,31 @@ clocktimer = setInterval("update()", 1);
 x.start();
 }
 
+function bugRandomizer(timePassed){
+  console.log("Time Passed: " + timePassed)
+  if (timePassed < 1000){
+    console.log("Damn");
+    return (Math.random() * 2);
+  } else if (timePassed < 2000){
+    console.log("Piss");
+    return (Math.random() * 3);
+  } else if (timePassed < 3000){
+    console.log("Shit");
+    return (Math.random() * 4);
+  } else {
+    console.log("Fuck");
+    return (Math.random() * 8);
+  }
+};
 //Look, don't judge me.
 //Handlebars is a butt.
-function awardBug(timePassed){
-    if(timePassed < 1000){
+function awardBug(bugNumber){
+  console.log("The bug number: " + bugNumber)
+    if(bugNumber <= 1){
     $("#bugPicture").attr("src", "{{bugData.0.BugImage}}");
-  } else if(timePassed < 2000){
+  } else if(bugNumber <= 2){
     $("#bugPicture").attr("src", "{{bugData.1.BugImage}}");
-  } else if(timePassed < 3000){
+  } else if(bugNumber <= 3){
     $("#bugPicture").attr("src", "{{bugData.2.BugImage}}");
   } else {
     $("#bugPicture").attr("src", "{{bugData.3.BugImage}}");
@@ -162,8 +179,10 @@ function awardBug(timePassed){
 function stop() {
   x.stop();
   $("#caughtBugModal").modal("toggle");
-
-  awardBug(x.time())
+  console.log("This is the time " + x.time())
+  var timething = x.time()
+  console.log(bugRandomizer(timething))
+  awardBug(bugRandomizer(timething))
 
 
 clearInterval(clocktimer);
