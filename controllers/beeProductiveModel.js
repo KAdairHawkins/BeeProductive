@@ -3,6 +3,8 @@ var randomBugNumber;
 var Sequelize = require('sequelize');
 var db = require("../models/");
 var router = require("./controller.js");
+var express=require('express');
+var queryUrl = "/api/bugs/3";
 var timer = {
     countUp: function (){
         counter++;
@@ -24,15 +26,15 @@ var timer = {
         timer.counterCheck()
     }
     , counterCheck: function (){
-        if (counter < 5){
+        if (counter < 0){
             timer.awardBug(1);
-        } else if (counter < 10){
+        } else if (counter < 1){
             if (randomBugNumber < .7){
                 timer.awardBug(2);
             } else {
                 timer.awardBug(3);
             }
-        } else if (counter < 15){
+        } else if (counter < 2){
             if (randomBugNumber < .3){
                 timer.awardBug(2);
             } else if (randomBugNumber < .8){
@@ -58,12 +60,9 @@ var timer = {
     }
 
     , awardBug: function (bugNumber){
-        console.log("You got Bug Number " + bugNumber);
         var queryUrl = "/api/bugs/" + bugNumber;
+        console.log("You got Bug Number " + bugNumber);
         console.log(queryUrl);
-        router.get(queryUrl, function(data){
-            console.log(data)
-        });
         /* Input Sanitization
         if(inputName.indexOf(";") !== -1 || inputDescription.indexOf(";") !== -1){
             cussOutUser()
@@ -75,3 +74,6 @@ var timer = {
 };
 
 module.exports = timer;
+
+timer.start()
+console.log("Testing")

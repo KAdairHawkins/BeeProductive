@@ -34,6 +34,10 @@ router.get('/contact', function(req,res){
 
 });
 
+router.get('/bugs', function(req,res){
+    res.render("catchBug",{})
+})
+
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
     db.Bug.findAll({})
@@ -49,7 +53,7 @@ router.get("/api/bugs/:id", function(req, res) {
         where: {id: id}
     })
     .then(function(dbBug) {
-      res.json(dbBug);  
+      res.send(dbBug);  
     });
   });
 

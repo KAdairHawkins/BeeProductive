@@ -22,5 +22,3 @@ app.use('/', routes);
 
 var PORT = 3000;
 app.listen(process.env.PORT || 3000);
-
-timer.start();
