@@ -4,7 +4,9 @@ module.exports = function(sequelize, DataTypes) {
     BugWorth: DataTypes.INTEGER,
     BugRarity: DataTypes.INTEGER,
     DateCreated: DataTypes.DATE
-  });
+  },
+    {timestamps: false}
+    );
 
   return Bug;
 };
