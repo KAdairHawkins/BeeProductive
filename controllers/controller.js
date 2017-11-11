@@ -22,8 +22,8 @@ router.get('/about', function(req,res){
 });
 
 //Get the pricing page
-router.get('/pricing', function(req,res){
-    res.send("This is the pricing page.");
+router.get('/login', function(req,res){
+    res.send("This is the login page.");
 });
 
 //Get the contact page
@@ -58,4 +58,4 @@ router.post("/user", function(req,res){
     res.send(username);
 })
 
-module.exports = router; 
+module.exports = router;
