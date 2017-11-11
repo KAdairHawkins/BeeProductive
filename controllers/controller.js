@@ -2,7 +2,7 @@ var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
-var username = "asdf";
+var username = "";
 var nodemailer = require('nodemailer');
 
 process.env.username = username;
