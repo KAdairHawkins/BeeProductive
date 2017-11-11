@@ -44,7 +44,11 @@ router.get('/contact', function(req,res){
 });
 
 router.get('/bugs', function(req,res){
-    res.render("catchBug",{})
+    db.Bug.findAll({})
+    .then(function(dbBug) {
+      res.render("catchBug",{dbBug});  
+    });
+    
 })
 
 //get all bugs

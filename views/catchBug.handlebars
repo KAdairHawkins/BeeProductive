@@ -147,7 +147,7 @@ x.start();
 function stop() {
 x.stop();
 $("#caughtBugModal").modal("toggle");
-$("#bugPicture").attr("src", "../public/Assets/Images/bug01.jpg");
+$("#bugPicture").attr("src", {{bug.imageLink}});
 
 clearInterval(clocktimer);
 }
