@@ -3,9 +3,19 @@ var db = require("../models");
 var router = express.Router();
 var path = require('path');
 var username = "asdf";
+var passwords = require("../keys.js");
+var nodemailer = require('nodemailer');
+
 process.env.username = username;
 console.log(process.env.username);
-
+var smtpTransport = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+        user: "beeproductiveapp@gmail.com",
+        pass: passwords.gmailPassword
+    }
+});
 //Web page entry
 router.get('/', function(req,res){
     res.redirect('/home');
@@ -75,6 +85,31 @@ router.post("/bug/create", function(req,res){
         res.redirect("/");
     });
 });
+
+//Send a contact e-mail
+router.post("/sendmessage", function(req,res){
+    console.log(req.body);
+    var mailOptions={
+        to : "beeproductiveapp@gmail.com",
+        subject : "Sent by " + req.body.email,
+        text : req.body.message
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+     if(error){
+            console.log(error);
+        res.end("error");
+     }else{
+            console.log("Message sent: " + response.message);
+        res.redirect("/thankyou");
+         }
+    });
+
+});
+
+router.get("/thankyou", function(req,res){
+    res.render("thankyou",{})
+})
 
 //Add a user
 router.post("/user/create", function(req,res){
