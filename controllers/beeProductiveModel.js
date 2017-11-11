@@ -1,3 +1,6 @@
+//This is pretty much depicated at the moment
+//But I'm keeping it around as I've been recycling code.
+
 var counter = 0;
 var randomBugNumber;
 var Sequelize = require('sequelize');
@@ -74,6 +77,3 @@ var timer = {
 };
 
 module.exports = timer;
-
-timer.start()
-console.log("Testing")

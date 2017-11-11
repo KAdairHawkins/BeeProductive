@@ -35,7 +35,7 @@
                     </div>
                     <div class="modal-body">
                       <form class="form-horizontal" action="/bug/create" method="POST">
-                        <img src="#" id="bugPicture"/>
+                        <img src = "#"  id="bugPicture"/>
                         <div class="form-group">
                           <label for="nameInput">Name</label>
                           <input type="text" class="form-control" name="name" placeholder="CSS Lost a Pixel">
@@ -137,6 +137,7 @@ update();
 
 function update() {
 $time.innerHTML = formatTime(x.time());
+console.log(x.time())
 }
 
 function start() {
@@ -144,10 +145,26 @@ clocktimer = setInterval("update()", 1);
 x.start();
 }
 
+//Look, don't judge me.
+//Handlebars is a butt.
+function awardBug(timePassed){
+    if(timePassed < 1000){
+    $("#bugPicture").attr("src", "{{bugData.0.BugImage}}");
+  } else if(timePassed < 2000){
+    $("#bugPicture").attr("src", "{{bugData.1.BugImage}}");
+  } else if(timePassed < 3000){
+    $("#bugPicture").attr("src", "{{bugData.2.BugImage}}");
+  } else {
+    $("#bugPicture").attr("src", "{{bugData.3.BugImage}}");
+  }
+};
+
 function stop() {
-x.stop();
-$("#caughtBugModal").modal("toggle");
-$("#bugPicture").attr("src", {{bug.imageLink}});
+  x.stop();
+  $("#caughtBugModal").modal("toggle");
+
+  awardBug(x.time())
+
 
 clearInterval(clocktimer);
 }
