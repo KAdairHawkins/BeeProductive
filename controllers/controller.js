@@ -11,6 +11,7 @@ router.get('/', function(req,res){
     res.redirect('/home');
 });
 
+//Serves the home page
 router.get('/home', function(req,res){
     res.render("index", {});
 });
@@ -21,7 +22,7 @@ router.get('/about', function(req,res){
 
 });
 
-//Get the pricing page
+//Get the login page
 router.get('/login', function(req,res){
     res.send("This is the login page.");
 });
@@ -52,10 +53,17 @@ router.post("/bug/create", function(req,res){
     });
 });
 
-router.post("/user", function(req,res){
+//Add a user
+router.post("/user/create", function(req,res){
     username = req.body.username;
     console.log(username);
     res.send(username);
+})
+
+//Update a user
+router.put("/user/update", function(req,res){
+    console.log("You're updating a thing.");
+    console.log(req.body);
 })
 
 module.exports = router;
