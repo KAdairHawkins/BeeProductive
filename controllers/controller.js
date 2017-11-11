@@ -37,8 +37,8 @@ router.get('/contact', function(req,res){
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
     db.Bug.findAll({})
-    .then(function(dbPost) {
-      res.json(dbPost);
+    .then(function(dbBug) {
+      res.json(dbBug);
     });
   });
 
