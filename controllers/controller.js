@@ -3,7 +3,6 @@ var db = require("../models");
 var router = express.Router();
 var path = require('path');
 var username = "asdf";
-var passwords = require("../keys.js");
 var nodemailer = require('nodemailer');
 
 process.env.username = username;
@@ -13,7 +12,7 @@ var smtpTransport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     auth: {
         user: "beeproductiveapp@gmail.com",
-        pass: passwords.gmailPassword
+        pass: process.env.gmailPassword
     }
 });
 //Web page entry
