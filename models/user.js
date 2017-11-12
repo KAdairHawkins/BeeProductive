@@ -11,6 +11,5 @@ module.exports = function(sequelize, DataTypes) {
     bugsCaught: DataTypes.INTEGER,
     defineateCreated: DataTypes.DATE
   });
-
-  return User;
+     return User;
 };

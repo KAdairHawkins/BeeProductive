@@ -1,0 +1,24 @@
+<script src="https://use.fontawesome.com/edc8a1b9d1.js"></script>
+<link rel="stylesheet" href="/public/Assets/css/bootstrap-social.css">
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-6 text-center mt-5">
+        <div class="card text-center" style="width: 40rem; margin: auto;">
+          <ul class="list-group list-group-flush">
+            {{#each userData}}  
+                <li class="list-group-item">Username: {{UserName}}</li>
+                <li class="list-group-item">Number of Bug 1: {{Bug1Count}}</li>
+                <li class="list-group-item">Number of Bug 3: {{Bug3Count}}</li>
+                <li class="list-group-item">Number of Bug 4: {{Bug4Count}}</li>
+                <li class="list-group-item">Available Wallet: {{wallet}}</li>
+                <li class="list-group-item">Profile: {{profile}}</li>
+            {{/each}}
+          </ul>
+        </div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
