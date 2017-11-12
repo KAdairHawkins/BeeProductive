@@ -6,7 +6,7 @@ var username = "";
 var nodemailer = require('nodemailer');
 
 process.env.username = username;
-console.log(process.env.username);
+console.log("the thing" + process.env.username);
 var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -38,7 +38,7 @@ router.get('/login', function(req,res){
 
 //Get the contact page
 router.get('/contact', function(req,res){
-    console.log(username);
+    console.log(process.env.username);
     res.render("contact", {});
 
 });
@@ -46,10 +46,19 @@ router.get('/contact', function(req,res){
 router.get('/bugs', function(req,res){
     db.Bug.findAll({})
     .then(function(dbBug) {
-      res.render("catchBug",{bugData: dbBug});  
+        console.log(process.env.username);
+        res.render("catchBug",{bugData: dbBug});  
     });
-    
 })
+
+//Create user profile
+router.get("/profile", function(req,res){
+    db.User.findAll({where: {id:4}})
+    .then(function(dbUser){
+        console.log(dbUser);
+        res.render("profile",{userData: dbUser});
+    });
+});
 
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
@@ -112,6 +121,11 @@ router.post("/sendmessage", function(req,res){
 
 router.get("/thankyou", function(req,res){
     res.render("thankyou",{})
+})
+
+//collect the username
+router.post("/user", function(req,res){
+    process.env.username = req.body.username;
 })
 
 //Add a user
