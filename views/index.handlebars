@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-4">
+    <div class="col">
     </div>
     <div class="col-4">
        <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
     Sign In
   </button> Put into navbar -->
 
-    <!-- Modal -->
+    <!-- First Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="text-align:center;">
@@ -24,13 +24,46 @@
                 <button type="button" class="btn btn-warning btn-lg btn-block" id="enter" href="/bugs">Enter</button>
             </div>
             <div>
-                <a href="#">Haven't started your bug collection yet? Click Here!</a>
+                <a href="#" id="signUp">Haven't started your bug collection yet? Click Here!</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-4"><div>
+
+    <!--Sign Up Modal-->
+    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="text-align:center;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="signUpModalLabel">Sign Up!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form class="form-horizontal p-2" action="/user/create" method="POST">
+                <div class="form-group text-left">
+                  <label for="nameInput">Name</label>
+                  <input type="text" class="form-control px-2" name="name" placeholder="John Doe">
+                </div>
+                <div class="form-group text-left">
+                  <label for="emailInput">Email</label>
+                  <input type="email" class="form-control px-2" name="email" placeholder="john.doe@example.com">
+                </div>
+                <div class="form-group text-left">
+                  <label for="profileInput">Your Profile</label>
+                 <textarea class="form-control px-2" placeholder="Description" name="profile"></textarea> 
+                </div>
+                <button type="submit" class="btn btn-default">Create Account</button>
+              </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col"><div>
     </div>
       <!-- <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#loginModal">
           Sign In
@@ -77,6 +110,10 @@
     });
     window.location="/bugs"
   })
+  $("#signUp").click(function(){
+    $("#exampleModal").modal("toggle");
+    $("#signUpModal").modal("toggle");
+  });
   var counter = 0;
   var timer = {
     countUp: function (){

@@ -130,9 +130,7 @@ router.post("/user", function(req,res){
 
 //Add a user
 router.post("/user/create", function(req,res){
-    username = req.body.username;
-    console.log(username);
-    res.send(username);
+    res.json(req.body);
 })
 
 //Update a user
