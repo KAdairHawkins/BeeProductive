@@ -33,6 +33,10 @@ router.get('/contact', function(req,res){
 
 });
 
+//Get the pofile page
+router.get('/profile', function(req,res){
+    res.send("This is the profile page.");
+});
 //Update a bug
 router.put('/bug/update', function(req,res){
     //pull the ID out of the body

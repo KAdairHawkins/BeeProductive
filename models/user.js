@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define("User", {
+  var Users = sequelize.define("Users", {
     userName: DataTypes.STRING,
     bug1Count: DataTypes.INTEGER,
     bug2Count: DataTypes.INTEGER,
@@ -12,5 +12,5 @@ module.exports = function(sequelize, DataTypes) {
     defineateCreated: DataTypes.DATE
   });
 
-  return User;
+  return Users;
 };
