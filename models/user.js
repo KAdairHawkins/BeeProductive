@@ -1,5 +1,6 @@
+
 module.exports = function(sequelize, DataTypes) {
-  var Users = sequelize.define("Users", {
+  var User = sequelize.define("User", {
     userName: DataTypes.STRING,
     bug1Count: DataTypes.INTEGER,
     bug2Count: DataTypes.INTEGER,
@@ -9,8 +10,10 @@ module.exports = function(sequelize, DataTypes) {
     //amount of BugBucks on hand
     wallet: DataTypes.INTEGER,
     bugsCaught: DataTypes.INTEGER,
-    defineateCreated: DataTypes.DATE
-  });
-
-  return Users;
+    dateCreated: DataTypes.DATE
+  },
+  {timestamps: false}
+  );
+  
+ return User;
 };
