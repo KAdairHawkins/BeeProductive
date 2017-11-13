@@ -92,7 +92,7 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
-    db.bug.create(req.body, function(result){
+    db.Bug.create(req.body, function(result){
         console.log(result);
         res.redirect("/");
     });
@@ -124,12 +124,16 @@ router.get("/thankyou", function(req,res){
 })
 
 //collect the username
-router.post("/user", function(req,res){
+router.post("/user/select", function(req,res){
     process.env.username = req.body.username;
 })
 
 //Add a user
 router.post("/user/create", function(req,res){
+    db.User.create(req.body, function(result){
+        console.log(result);
+        res.redirect("/");
+    });
     res.json(req.body);
 })
 
