@@ -1,21 +1,24 @@
+//Pull all requirements
 var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
-
-//Necessary to define the username, or line 9 errors.
-var username;
 var nodemailer = require('nodemailer');
+
+//Necessary to define the username, or the process.env line errors in a sec.
+var username;
 process.env.username = username;
-console.log("the thing" + process.env.username);
+//set up e-mail configuration.
 var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
         user: "beeproductiveapp@gmail.com",
+        //In the "settings" page on Heroku if you really need it, but please don't touch.
         pass: process.env.gmailPassword
     }
 });
+
 //Web page entry
 router.get('/', function(req,res){
     res.redirect('/home');
@@ -44,8 +47,7 @@ router.get('/contact', function(req,res){
 
 });
 
-//Get the pofile page
-
+//Get the profile page
 router.get('/profile/display/:userName', function(req,res){
    //res.send("This is the profile page.");
     console.log(req.params.userName);
@@ -61,6 +63,7 @@ router.get('/profile/display/:userName', function(req,res){
     });   
   });    
 
+//Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
     db.Bugs.findAll({})
     .then(function(dbBug) {
@@ -70,9 +73,9 @@ router.get('/bugs', function(req,res){
 })
 
 //Create user profile
-router.get("/profile", function(req,res){
-//    db.User.findAll({where: {id:4}})           
-    db.User.findAll({where: {userName:user}})
+router.get("/profile", function(req,res){   
+    console.log(process.env.username);      
+    db.User.findAll({where: {userName:process.env.username}})
     .then(function(dbUser){
         console.log(dbUser);
         res.render("profile",{userData: dbUser});
