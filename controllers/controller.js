@@ -118,6 +118,7 @@ router.put('/bug/update', function(req,res){
 //Add a bug
 router.post("/bug/create", function(req,res){
     db.Bugs.create(req.body, function(result){
+        console.loq(req.body)
         console.log(result);
         res.redirect("/home");
     });
