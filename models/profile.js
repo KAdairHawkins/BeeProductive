@@ -1,4 +1,4 @@
- // Import the ORM to implement functions that will interact with the database
+/* // Import the ORM to implement functions that will interact with the database
 var db = require('../models');
 
 // Create the burger object
@@ -53,4 +53,4 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
     return Burger;
-};
+};*/
