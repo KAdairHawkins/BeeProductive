@@ -7,32 +7,36 @@ USE BeeProductive;
 CREATE TABLE Users
 (
 	id int NOT NULL AUTO_INCREMENT,
-	UserName varchar(255) NOT NULL,
-   HasBug1 BOOLEAN DEFAULT false,
-   HasBug2 BOOLEAN DEFAULT false,
-   HasBug3 BOOLEAN DEFAULT false,
-   HasBug4 BOOLEAN DEFAULT false,
-	DateCreated  datetime DEFAULT NOW(),
+	userName varchar(255) NOT NULL,
+   	bug1Count INTEGER DEFAULT 0,
+   	bug2Count INTEGER DEFAULT 0,
+ 	bug3Count INTEGER DEFAULT 0,
+  	bug4Count INTEGER DEFAULT 0,
+	profile varchar(255),
+	wallet INTEGER DEFAULT 0,
+	bugsCaught INTEGER,
+	dateCreated  datetime DEFAULT NOW(),
 	PRIMARY KEY (id)
 );
 
 CREATE TABLE Bugs
 (
 	id int NOT NULL AUTO_INCREMENT,
-	BugName varchar(255) NOT NULL,
-   BugWorth int,
-   BugRarity int,
-	DateCreated  datetime DEFAULT NOW(),
-	PRIMARY KEY (id)
+	bugName varchar(255) NOT NULL,
+        bugWorth int,
+        bugImage varchar(100),
+	dateCreated  datetime DEFAULT NOW(),
+	PRIMARY KEY (id),
 );
 
 CREATE TABLE UserBugs
 (
 	id int NOT NULL AUTO_INCREMENT,
-   UserID int NOT NULL,
-	BugLabel varchar(255) NOT NULL,
-   BugDescription varchar(255),
-   TimeSpentInMinutes int,
-	DateCreated  datetime DEFAULT NOW(),
+        userId int NOT NULL,
+	bugLabel varchar(255) NOT NULL,
+        bugDescription varchar(255),
+        timeSpentInMinutes int,
+	dateCreated  datetime DEFAULT NOW(),
+	dateCompleted datetime
 	PRIMARY KEY (id)
 );
