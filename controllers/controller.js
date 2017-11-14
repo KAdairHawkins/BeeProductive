@@ -142,7 +142,7 @@ router.get("/thankyou", function(req,res){
 })
 
 //collect the username
-router.post("/user", function(req,res){
+router.post("/user/select", function(req,res){
     process.env.username = req.body.username;
  //   console.log("process.env.username " + process.env.username);
 })
@@ -150,6 +150,10 @@ router.post("/user", function(req,res){
 //Add a user
 router.post("/user/create", function(req,res){
     console.log("creating a user");
+    db.User.create(req.body, function(result){
+        console.log(result);
+        res.redirect("/");
+    });
     res.json(req.body);
     console.log("User ID: " + req.body.name);
     console.log("email: " + req.body.email);
