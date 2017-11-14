@@ -77,6 +77,7 @@ router.get("/profile", function(req,res){
     db.User.findAll({where: {userName:process.env.username}})
     .then(function(dbUser){
         if (dbUser = []){
+            //toDo: Create a view that pops an error message
             res.send("Well that didn't work");
         } else {
         console.log(dbUser);
@@ -118,7 +119,7 @@ router.put('/bug/update', function(req,res){
 router.post("/bug/create", function(req,res){
     db.Bugs.create(req.body, function(result){
         console.log(result);
-        res.redirect("/");
+        res.redirect("/home");
     });
 });
 
@@ -127,9 +128,11 @@ router.post("/sendmessage", function(req,res){
     console.log(req.body);
     var mailOptions={
         to : "beeproductiveapp@gmail.com",
+        //Because I can't figure out how to make it pretend to be sent by someone with the input e-mail address
         subject : "Sent by " + req.body.email,
         text : req.body.message
     }
+    //Black magic/mail configuration copy-pasted.
     console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
      if(error){
@@ -143,6 +146,7 @@ router.post("/sendmessage", function(req,res){
 
 });
 
+//Serves a thank you page for sending e-mail
 router.get("/thankyou", function(req,res){
     res.render("thankyou",{})
 })
