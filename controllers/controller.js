@@ -117,6 +117,7 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
+    console.log(req);
     db.Bugs.create(req.body, function(result){
         console.loq(req.body)
         console.log(result);
