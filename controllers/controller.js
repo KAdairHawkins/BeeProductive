@@ -2,9 +2,10 @@ var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
-//var username = "";
-var nodemailer = require('nodemailer');
 
+//Necessary to define the username, or line 9 errors.
+var username;
+var nodemailer = require('nodemailer');
 process.env.username = username;
 console.log("the thing" + process.env.username);
 var smtpTransport = nodemailer.createTransport({
