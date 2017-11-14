@@ -73,12 +73,14 @@ router.get('/bugs', function(req,res){
 })
 
 //Create user profile
-router.get("/profile", function(req,res){   
-    console.log(process.env.username);      
+router.get("/profile", function(req,res){  
     db.User.findAll({where: {userName:process.env.username}})
     .then(function(dbUser){
+        if (dbUser = []){
+            res.send("Well that didn't work");
+        } else {
         console.log(dbUser);
-        res.render("profile",{userData: dbUser});
+        res.render("profile",{userData: dbUser});}
     });
 });
 
