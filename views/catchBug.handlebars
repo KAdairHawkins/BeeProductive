@@ -166,13 +166,13 @@ function bugRandomizer(timePassed){
 function awardBug(bugNumber){
   console.log("The bug number: " + bugNumber)
     if(bugNumber <= 1){
-    $("#bugPicture").attr("src", "{{bugData.0.BugImage}}");
+    $("#bugPicture").attr("src", "..{{bugData.0.BugImage}}");
   } else if(bugNumber <= 2){
-    $("#bugPicture").attr("src", "{{bugData.1.BugImage}}");
+    $("#bugPicture").attr("src", "..{{bugData.1.BugImage}}");
   } else if(bugNumber <= 3){
-    $("#bugPicture").attr("src", "{{bugData.2.BugImage}}");
+    $("#bugPicture").attr("src", "..{{bugData.2.BugImage}}");
   } else {
-    $("#bugPicture").attr("src", "{{bugData.3.BugImage}}");
+    $("#bugPicture").attr("src", "..{{bugData.3.BugImage}}");
   }
 };
 
