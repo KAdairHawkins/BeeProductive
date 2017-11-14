@@ -1,12 +1,13 @@
-module.exports = function(sequelize, DataTypes) {
-  var Bug = sequelize.define("Bug", {
-    BugName: DataTypes.STRING,
-    BugWorth: DataTypes.INTEGER,
-    DateCreated: DataTypes.DATE,
-    BugImage: DataTypes.STRING
-  },
-    {timestamps: false}
-    );
 
-  return Bug;
+module.exports = function(sequelize, DataTypes) {
+var Bugs = sequelize.define("Bugs", {
+    bugName: DataTypes.STRING,
+    bugWorth: DataTypes.INTEGER,
+    bugImage: DataTypes.STRING,
+    dateCreated: DataTypes.DATE
+  });
+  return Bugs;
 };
+  
+
+

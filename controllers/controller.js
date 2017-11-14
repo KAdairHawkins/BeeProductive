@@ -2,7 +2,7 @@ var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
-var username = "";
+//var username = "";
 var nodemailer = require('nodemailer');
 
 process.env.username = username;
@@ -43,6 +43,23 @@ router.get('/contact', function(req,res){
 
 });
 
+//Get the pofile page
+
+router.get('/profile/display/:userName', function(req,res){
+   //res.send("This is the profile page.");
+    console.log(req.params.userName);
+     db.User.findAll({
+        where: {
+          userName:req.params.userName
+        }
+    }).then(function(dbUser){
+      console.log("dbUser " + JSON.stringify(dbUser, null, 2));
+   //   res.json(dbUser);
+      res.redirect('/profile');
+      res.render("profile", {userData: dbUser});
+    });   
+  });    
+
 router.get('/bugs', function(req,res){
     db.Bug.findAll({})
     .then(function(dbBug) {
@@ -53,7 +70,8 @@ router.get('/bugs', function(req,res){
 
 //Create user profile
 router.get("/profile", function(req,res){
-    db.User.findAll({where: {id:4}})
+//    db.User.findAll({where: {id:4}})           
+    db.User.findAll({where: {userName:user}})
     .then(function(dbUser){
         console.log(dbUser);
         res.render("profile",{userData: dbUser});
@@ -126,15 +144,20 @@ router.get("/thankyou", function(req,res){
 //collect the username
 router.post("/user/select", function(req,res){
     process.env.username = req.body.username;
+ //   console.log("process.env.username " + process.env.username);
 })
 
 //Add a user
 router.post("/user/create", function(req,res){
+    console.log("creating a user");
     db.User.create(req.body, function(result){
         console.log(result);
         res.redirect("/");
     });
     res.json(req.body);
+    console.log("User ID: " + req.body.name);
+    console.log("email: " + req.body.email);
+    console.log("profile: " + req.body.profile);
 })
 
 //Update a user
