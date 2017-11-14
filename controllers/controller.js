@@ -62,7 +62,7 @@ router.get('/profile/display/:userName', function(req,res){
   });    
 
 router.get('/bugs', function(req,res){
-    db.Bug.findAll({})
+    db.Bugs.findAll({})
     .then(function(dbBug) {
         console.log(process.env.username);
         res.render("catchBug",{bugData: dbBug});  
@@ -81,7 +81,7 @@ router.get("/profile", function(req,res){
 
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
-    db.Bug.findAll({})
+    db.Bugs.findAll({})
     .then(function(dbBug) {
       res.json(dbBug);  
     });
@@ -90,7 +90,7 @@ router.get("/api/bugs/", function(req, res) {
 //get one bug
 router.get("/api/bugs/:id", function(req, res) {
     var id = req.params.id;
-    db.Bug.findAll({
+    db.Bugs.findAll({
         where: {id: id}
     })
     .then(function(dbBug) {
@@ -103,7 +103,7 @@ router.put('/bug/update', function(req,res){
     //pull the ID out of the body
     var id = req.body.bugId;
     console.log(req.body.bugId);
-    db.bug.update(id, function(result){
+    db.Bugs.update(id, function(result){
         console.log(result);
         res.redirect('/home');
     });
@@ -111,7 +111,7 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
-    db.Bug.create(req.body, function(result){
+    db.Bugs.create(req.body, function(result){
         console.log(result);
         res.redirect("/");
     });
