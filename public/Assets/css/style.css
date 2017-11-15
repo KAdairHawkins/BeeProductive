@@ -12,7 +12,6 @@ body {
       background-size: cover;
       margin-bottom: 0px;
 }
-
 #contactForm {
   background-color: #343a40;
   color: yellow;
@@ -35,3 +34,4 @@ h1 {
 .modal {
   margin-top: 10%;
 }
+
