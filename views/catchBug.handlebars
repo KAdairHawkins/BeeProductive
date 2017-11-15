@@ -7,14 +7,22 @@
               <div class="col-md-2">
               </div>
               <div class="col-md-8 col-md-offset-2">
-                  <h2 id="time">Click the Egg</h2>
-                  <input type="button" value="Hunt a Bug!" onclick="start();"></input>
-                	<input type="button" value="I caught it!" onclick="stop();"></input>
-                	<input type="button" value="Give Up" onclick="reset()"></input>
+                  <h1 id="time" style="font-size: 50px">Click the Egg to start and stop</h1> <br><br>
+                  <img src="../public/Assets/Images/Egg.jpg" onclick="toggle();"/>
               </div>
               <div class="col-md-2">
               </div>
           </div>
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-3 mt-5">
+              <button class="btn btn-block btn-danger" onclick="wussOut()" style="visibility: hidden" id="wussButton">Give Up</button>
+            </div>
+            <div class="col">
+          </div>
+          </div>
+
           <div class="row">
             <div class="col-4">
             </div>
@@ -74,6 +82,9 @@
 //	To reset a paused stopwatch
 //		obj.stop();
 //
+
+var running = false;
+
 var	clsStopwatch = function() {
   // Private vars
   var	startAt	= 0;	// Time of last start / resume. (0 if not running)
@@ -137,7 +148,19 @@ update();
 
 function update() {
 $time.innerHTML = formatTime(x.time());
-console.log(x.time())
+$("#time").css("font-size", "100px");
+}
+
+function toggle() {
+  if (running){
+    caughtBug();
+    $("#wussButton").css("visibility", "hidden");
+    running = !running;
+  } else {
+    start();
+    $("#wussButton").css("visibility", "visible");
+    running = !running;
+  }
 }
 
 function start() {
@@ -148,16 +171,12 @@ x.start();
 function bugRandomizer(timePassed){
   console.log("Time Passed: " + timePassed)
   if (timePassed < 1000){
-    console.log("Damn");
     return (Math.random() * 2);
   } else if (timePassed < 2000){
-    console.log("Piss");
     return (Math.random() * 3);
   } else if (timePassed < 3000){
-    console.log("Shit");
     return (Math.random() * 4);
   } else {
-    console.log("Fuck");
     return (Math.random() * 8);
   }
 };
@@ -176,9 +195,16 @@ function awardBug(bugNumber){
   }
 };
 
+function caughtBug() {
+  stop();
+  $("#caughtBugModal").modal("toggle");
+  var timething = x.time()
+  console.log(bugRandomizer(timething))
+  awardBug(bugRandomizer(timething))
+}
+
 function stop() {
   x.stop();
-  $("#caughtBugModal").modal("toggle");
   console.log("This is the time " + x.time())
   var timething = x.time()
   console.log(bugRandomizer(timething))
@@ -188,6 +214,16 @@ function stop() {
 clearInterval(clocktimer);
 }
 
+//turn into a modal eventually
+function wussOut(){
+  stop()
+  if(confirm("Are you sure? It's getting away!")){
+    reset();
+  } else {
+    start();
+  }
+}
+//pop up a confirm prompt
 function reset() {
 stop();
 x.reset();

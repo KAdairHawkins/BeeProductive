@@ -1,4 +1,4 @@
-//This is pretty much depicated at the moment
+//This is pretty much depricated at the moment
 //But I'm keeping it around as I've been recycling code.
 
 var counter = 0;
