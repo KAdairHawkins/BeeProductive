@@ -1,3 +1,9 @@
+
+
+button.btn.btn-success {
+    margin-left: 110px;
+}
+
 body {
       background: url('../Images/wallpaper3.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
@@ -6,3 +12,26 @@ body {
       background-size: cover;
       margin-bottom: 0px;
 }
+#contactForm {
+  background-color: #343a40;
+  color: yellow;
+  border-radius: 25px;
+}
+
+.dropdown-toggle {
+  width: 100%;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
+h1 {
+    color: yellow;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.modal {
+  margin-top: 10%;
+}
+

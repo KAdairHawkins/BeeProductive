@@ -1,0 +1,196 @@
+<script src="https://use.fontawesome.com/edc8a1b9d1.js"></script>
+<link rel="stylesheet" href="/public/Assets/css/bootstrap-social.css">
+<section id="contact" class="content-section text-center my-5">
+  <div class="about">
+      <div class="container py-5" id="bugCatcher">
+          <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-8 col-md-offset-2">
+                  <h2 id="time">Click the Egg</h2>
+                  <input type="button" value="Hunt a Bug!" onclick="start();"></input>
+                	<input type="button" value="I caught it!" onclick="stop();"></input>
+                	<input type="button" value="Give Up" onclick="reset()"></input>
+              </div>
+              <div class="col-md-2">
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+               <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+            Sign In
+          </button> Put into navbar -->
+
+            <!-- Modal -->
+              <div class="modal fade" id="caughtBugModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content" style="text-align:center;">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">You got one!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form class="form-horizontal" action="/bug/create" method="POST">
+                        <img src = "#"  id="bugPicture"/>
+                        <div class="form-group">
+                          <label for="nameInput">Name</label>
+                          <input type="text" class="form-control" name="name" placeholder="CSS Lost a Pixel">
+                        </div>
+                        <div class="form-group ">
+                          <label for="messageInput">Description</label>
+                         <textarea class="form-control" placeholder="Pixel got pushed the wrong way" name="description"></textarea> 
+                        </div>
+                        <button type="submit" class="btn btn-default btn-warning btn-block">Store Bug</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4"><div>
+            </div>
+          </div>
+  </div>
+</section>
+<script>
+  //	Simple example of using private variables
+//
+//	To start the stopwatch:
+//		obj.start();
+//
+//	To get the duration in milliseconds without pausing / resuming:
+//		var	x = obj.time();
+//
+//	To pause the stopwatch:
+//		var	x = obj.stop();	// Result is duration in milliseconds
+//
+//	To resume a paused stopwatch
+//		var	x = obj.start();	// Result is duration in milliseconds
+//
+//	To reset a paused stopwatch
+//		obj.stop();
+//
+var	clsStopwatch = function() {
+  // Private vars
+  var	startAt	= 0;	// Time of last start / resume. (0 if not running)
+  var	lapTime	= 0;	// Time on the clock when last stopped in milliseconds
+
+  var	now	= function() {
+      return (new Date()).getTime();
+    };
+
+  // Public methods
+  // Start or resume
+  this.start = function() {
+      startAt	= startAt ? startAt : now();
+    };
+
+  // Stop or pause
+  this.stop = function() {
+      // If running, update elapsed time otherwise keep it
+      lapTime	= startAt ? lapTime + now() - startAt : lapTime;
+      startAt	= 0; // Paused
+    };
+
+  // Reset
+  this.reset = function() {
+      lapTime = startAt = 0;
+    };
+
+  // Duration
+  this.time = function() {
+      return lapTime + (startAt ? now() - startAt : 0);
+    };
+};
+
+var x = new clsStopwatch();
+var $time;
+var clocktimer;
+
+function pad(num, size) {
+var s = "0000" + num;
+return s.substr(s.length - size);
+}
+
+function formatTime(time) {
+var h = m = s = ms = 0;
+var newTime = '';
+
+h = Math.floor( time / (60 * 60 * 1000) );
+time = time % (60 * 60 * 1000);
+m = Math.floor( time / (60 * 1000) );
+time = time % (60 * 1000);
+s = Math.floor( time / 1000 );
+ms = time % 1000;
+
+newTime = pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 3);
+return newTime;
+}
+$time = document.getElementById('time')
+function show() {
+update();
+}
+
+function update() {
+$time.innerHTML = formatTime(x.time());
+console.log(x.time())
+}
+
+function start() {
+clocktimer = setInterval("update()", 1);
+x.start();
+}
+
+function bugRandomizer(timePassed){
+  console.log("Time Passed: " + timePassed)
+  if (timePassed < 1000){
+    console.log("Damn");
+    return (Math.random() * 2);
+  } else if (timePassed < 2000){
+    console.log("Piss");
+    return (Math.random() * 3);
+  } else if (timePassed < 3000){
+    console.log("Shit");
+    return (Math.random() * 4);
+  } else {
+    console.log("Fuck");
+    return (Math.random() * 8);
+  }
+};
+//Look, don't judge me.
+//Handlebars is a butt.
+function awardBug(bugNumber){
+  console.log("The bug number: " + bugNumber)
+    if(bugNumber <= 1){
+    $("#bugPicture").attr("src", "{{bugData.0.bugImage}}");
+  } else if(bugNumber <= 2){
+    $("#bugPicture").attr("src", "{{bugData.1.bugImage}}");
+  } else if(bugNumber <= 3){
+    $("#bugPicture").attr("src", "{{bugData.2.bugImage}}");
+  } else {
+    $("#bugPicture").attr("src", "{{bugData.3.bugImage}}");
+  }
+};
+
+function stop() {
+  x.stop();
+  $("#caughtBugModal").modal("toggle");
+  console.log("This is the time " + x.time())
+  var timething = x.time()
+  console.log(bugRandomizer(timething))
+  awardBug(bugRandomizer(timething))
+
+
+clearInterval(clocktimer);
+}
+
+function reset() {
+stop();
+x.reset();
+update();
+}
+</script>
