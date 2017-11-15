@@ -17,7 +17,7 @@
             <div class="col">
             </div>
             <div class="col-3 mt-5">
-              <button class="btn btn-block btn-danger" onclick="reset()" style="visibility: hidden" id="wussButton">Give Up</button>
+              <button class="btn btn-block btn-danger" onclick="wussOut()" style="visibility: hidden" id="wussButton">Give Up</button>
             </div>
             <div class="col">
           </div>
@@ -148,6 +148,7 @@ update();
 
 function update() {
 $time.innerHTML = formatTime(x.time());
+$("#time").css("font-size", "100px");
 }
 
 function toggle() {
@@ -213,6 +214,16 @@ function stop() {
 clearInterval(clocktimer);
 }
 
+//turn into a modal eventually
+function wussOut(){
+  stop()
+  if(confirm("Are you sure? It's getting away!")){
+    reset();
+  } else {
+    start();
+  }
+}
+//pop up a confirm prompt
 function reset() {
 stop();
 x.reset();
