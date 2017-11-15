@@ -46,13 +46,13 @@
                         <img src = "#"  id="bugPicture"/>
                         <div class="form-group">
                           <label for="nameInput">Name</label>
-                          <input type="text" class="form-control" name="name" placeholder="CSS Lost a Pixel">
+                          <input type="text" class="form-control" name="bugLabel" placeholder="CSS Lost a Pixel" id="bugLabelField">
                         </div>
                         <div class="form-group ">
                           <label for="messageInput">Description</label>
-                         <textarea class="form-control" placeholder="Pixel got pushed the wrong way" name="description"></textarea> 
+                         <textarea class="form-control" placeholder="Pixel got pushed the wrong way" name="bugDescription" id="bugDescriptionField"></textarea> 
                         </div>
-                        <button type="submit" class="btn btn-default btn-warning btn-block">Store Bug</button>
+                        <button type="submit" class="btn btn-default btn-warning btn-block" id="submitButton">Store Bug</button>
                       </form>
                     </div>
                   </div>
@@ -82,6 +82,39 @@
 //	To reset a paused stopwatch
 //		obj.stop();
 //
+
+//cheating with Stack Overflow, because I can't be bothered to write all this myself.
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd = '0'+dd
+};
+
+if(mm<10) {
+    mm = '0'+mm
+};
+
+today = mm + '/' + dd + '/' + yyyy;
+
+$("#submitButton").click(function(){
+  event.preventDefault();
+  console.log("Text");
+  console.log($("#bugLabelField").text().trim());
+  console.log("Value");
+  console.log($("#bugLabelField").val().trim());
+  var bug = {
+    userID: 13
+    , bugLabel: $("#bugLabelField").val().trim()
+    , bugDescription: $("#bugDescriptionField").val().trim()
+    , timeSpentInMinutes: x.time/60000
+    , dateCreated: today
+    , dateCompleted: today
+  }
+  $.post("/bug/create", bug)
+})
 
 var running = false;
 
@@ -214,7 +247,7 @@ function stop() {
 clearInterval(clocktimer);
 }
 
-//turn into a modal eventually
+//ToDo: turn into a modal eventually
 function wussOut(){
   stop()
   if(confirm("Are you sure? It's getting away!")){

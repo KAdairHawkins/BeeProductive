@@ -56,13 +56,14 @@ router.get('/profile/display/:userName', function(req,res){
           userName:req.params.userName
         }
     }).then(function(dbUser){
+        db.UserBugs.findAll({}).then(function(dbBug){
       console.log("dbUser " + JSON.stringify(dbUser, null, 2));
    //   res.json(dbUser);
       res.redirect('/profile');
-      res.render("profile", {userData: dbUser});
+      res.render("profile", {userData: dbUser, bugData: dbBug});
     });   
   });    
-
+});
 //Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
     db.Bugs.findAll({})
@@ -117,8 +118,8 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
-    console.log(req);
-    db.Bugs.create(req.body, function(result){
+    console.log(req.body);
+    db.UserBugs.create(req.body, function(result){
         console.loq(req.body)
         console.log(result);
         res.redirect("/home");

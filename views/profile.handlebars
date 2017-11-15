@@ -16,6 +16,12 @@
                 <li class="list-group-item">Profile: {{profile}}</li>
             {{/each}}
           </ul>
+          <ul class="list-group list-group-flush">
+            {{#each bugCaught}}
+            <li class="list-group-item">Bug Name: {{bugLabel}}</li>
+            <li class="list-group-item">Bug Description: {{bugDescription}}</li>
+            {{/each}}
+          </ul>
         </div>
     </div>
     <div class="col">
