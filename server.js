@@ -20,5 +20,5 @@ var timer = require('./controllers/beeProductiveModel.js');
 var routes = require('./controllers/controller.js');
 app.use('/', routes);
 
-var PORT = 3000;
-app.listen(process.env.PORT || 3000);
+var PORT = 3001;
+app.listen(process.env.PORT || 3001);

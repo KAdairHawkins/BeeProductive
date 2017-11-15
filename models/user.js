@@ -10,7 +10,9 @@ module.exports = function(sequelize, DataTypes) {
     wallet: DataTypes.INTEGER,
     bugsCaught: DataTypes.INTEGER,
     dateCreated: DataTypes.DATE  
-});  
+},
+//Prevents Sequelize from breaking when it tries to pull a "time created" column and can't find one
+{timestamps: false});  
 
 User.associate = function(models) {
     // Associating User with UserBugs
@@ -20,5 +22,7 @@ User.associate = function(models) {
     });
   };
 
-  return User;
+
+  
+ return User;
 };

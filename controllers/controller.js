@@ -1,20 +1,24 @@
+//Pull all requirements
 var express = require('express');
 var db = require("../models");
 var router = express.Router();
 var path = require('path');
-//var username = "";
 var nodemailer = require('nodemailer');
 
+//Necessary to define the username, or the process.env line errors in a sec.
+var username;
 process.env.username = username;
-console.log("the thing" + process.env.username);
+//set up e-mail configuration.
 var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
         user: "beeproductiveapp@gmail.com",
+        //In the "settings" page on Heroku if you really need it, but please don't touch.
         pass: process.env.gmailPassword
     }
 });
+
 //Web page entry
 router.get('/', function(req,res){
     res.redirect('/home');
@@ -43,8 +47,7 @@ router.get('/contact', function(req,res){
 
 });
 
-//Get the pofile page
-
+//Get the profile page
 router.get('/profile/display/:userName', function(req,res){
    //res.send("This is the profile page.");
     console.log(req.params.userName);
@@ -53,34 +56,54 @@ router.get('/profile/display/:userName', function(req,res){
           userName:req.params.userName
         }
     }).then(function(dbUser){
+        db.UserBugs.findAll({}).then(function(dbBug){
       console.log("dbUser " + JSON.stringify(dbUser, null, 2));
    //   res.json(dbUser);
       res.redirect('/profile');
-      res.render("profile", {userData: dbUser});
+      res.render("profile", {userData: dbUser, bugData: dbBug});
     });   
   });    
-
+});
+//Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
-    db.Bug.findAll({})
-    .then(function(dbBug) {
-        console.log(process.env.username);
-        res.render("catchBug",{bugData: dbBug});  
-    });
+    if(process.env.username !== undefined){
+        db.User.findAll({
+            where: {
+                userName: process.env.username
+            }
+        }).then(function(dbUser){
+            console.log(dbUser)
+            db.UserBugs.findAll({
+                where: {
+                    userId: dbUser.id
+                }
+            }).then(function(dbUserBugs){
+                
+            })
+        db.Bugs.findAll({})
+        .then(function(dbBug) {
+            res.render("catchBug",{bugData: dbBug});  
+        });
+        })
+    }
 })
 
 //Create user profile
-router.get("/profile", function(req,res){
-//    db.User.findAll({where: {id:4}})           
-    db.User.findAll({where: {userName:user}})
+router.get("/profile", function(req,res){  
+    db.User.findAll({where: {userName:process.env.username}})
     .then(function(dbUser){
+        if (dbUser = []){
+            //toDo: Create a view that pops an error message
+            res.send("Well that didn't work");
+        } else {
         console.log(dbUser);
-        res.render("profile",{userData: dbUser});
+        res.render("profile",{userData: dbUser});}
     });
 });
 
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
-    db.Bug.findAll({})
+    db.Bugs.findAll({})
     .then(function(dbBug) {
       res.json(dbBug);  
     });
@@ -89,7 +112,7 @@ router.get("/api/bugs/", function(req, res) {
 //get one bug
 router.get("/api/bugs/:id", function(req, res) {
     var id = req.params.id;
-    db.Bug.findAll({
+    db.Bugs.findAll({
         where: {id: id}
     })
     .then(function(dbBug) {
@@ -102,7 +125,7 @@ router.put('/bug/update', function(req,res){
     //pull the ID out of the body
     var id = req.body.bugId;
     console.log(req.body.bugId);
-    db.bug.update(id, function(result){
+    db.Bugs.update(id, function(result){
         console.log(result);
         res.redirect('/home');
     });
@@ -110,9 +133,11 @@ router.put('/bug/update', function(req,res){
 
 //Add a bug
 router.post("/bug/create", function(req,res){
-    db.Bug.create(req.body, function(result){
+    console.log(req.body);
+    db.UserBugs.create(req.body, function(result){
+        console.loq(req.body)
         console.log(result);
-        res.redirect("/");
+        res.redirect("/home");
     });
 });
 
@@ -121,9 +146,11 @@ router.post("/sendmessage", function(req,res){
     console.log(req.body);
     var mailOptions={
         to : "beeproductiveapp@gmail.com",
+        //Because I can't figure out how to make it pretend to be sent by someone with the input e-mail address
         subject : "Sent by " + req.body.email,
         text : req.body.message
     }
+    //Black magic/mail configuration copy-pasted.
     console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
      if(error){
@@ -137,6 +164,7 @@ router.post("/sendmessage", function(req,res){
 
 });
 
+//Serves a thank you page for sending e-mail
 router.get("/thankyou", function(req,res){
     res.render("thankyou",{})
 })
