@@ -66,11 +66,26 @@ router.get('/profile/display/:userName', function(req,res){
 });
 //Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
-    db.Bugs.findAll({})
-    .then(function(dbBug) {
-        console.log(process.env.username);
-        res.render("catchBug",{bugData: dbBug});  
-    });
+    if(process.env.username !== undefined){
+        db.User.findAll({
+            where: {
+                userName: process.env.username
+            }
+        }).then(function(dbUser){
+            console.log(dbUser)
+            db.UserBugs.findAll({
+                where: {
+                    userId: dbUser.id
+                }
+            }).then(function(dbUserBugs){
+                
+            })
+        db.Bugs.findAll({})
+        .then(function(dbBug) {
+            res.render("catchBug",{bugData: dbBug});  
+        });
+        })
+    }
 })
 
 //Create user profile

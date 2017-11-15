@@ -5,7 +5,7 @@ button.btn.btn-success {
 }
 
 body {
-      background: url('../Images/wallpaper3.jpg') no-repeat center center fixed;
+      background: url('../Images/honeycomb.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -34,4 +34,3 @@ h1 {
 .modal {
   margin-top: 10%;
 }
-
