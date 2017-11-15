@@ -1,4 +1,3 @@
-
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     userName: DataTypes.STRING,
@@ -10,10 +9,16 @@ module.exports = function(sequelize, DataTypes) {
     //amount of BugBucks on hand
     wallet: DataTypes.INTEGER,
     bugsCaught: DataTypes.INTEGER,
-    dateCreated: DataTypes.DATE
-  },
-  {timestamps: false}
-  );
-  
- return User;
+    dateCreated: DataTypes.DATE  
+});  
+
+User.associate = function(models) {
+    // Associating User with UserBugs
+    // When an User is deleted, also delete any associated UserBugs
+    User.hasMany(models.UserBugs, {
+      onDelete: "cascade"
+    });
+  };
+
+  return User;
 };
