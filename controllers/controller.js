@@ -192,11 +192,17 @@ router.post("/user/create", function(req,res){
         console.log(result);
         res.redirect("/");
     });
-    res.json(req.body);
+    db.User.findAll({
+            where: {
+                userName:process.env.username
+            }
+        }).then(function(dbUser){
+            res.render("profile", {userData: dbUser});
     console.log("User ID: " + req.body.name);
     console.log("email: " + req.body.email);
     console.log("profile: " + req.body.profile);
-})
+    })
+});
 
 //Update a user
 router.put("/user/update", function(req,res){

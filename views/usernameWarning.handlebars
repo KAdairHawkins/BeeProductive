@@ -4,6 +4,27 @@
     <div class="col-4">
         <h1 class="text-center">{{signInWarning}}</h1>
         <button class="btn btn-block btn-warning" id="signInButton"><h1 class="text-center">Sign In</h1></button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="text-align:center;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              User Name: <input type="text" userName="firstname" value="" size="20" id="userName"> <!-- the size is a type of user validations -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning btn-lg btn-block" id="enter" href="/bugs">Enter</button>
+            </div>
+            <div class="pb-3">
+                <a href="#" id="signUp"><button class="btn btn-dark" style="width: 94%">Haven't started your bug collection yet? Click Here!</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content" style="text-align:center;">
@@ -39,7 +60,7 @@
 </div>
 <script>
     $("#signInButton").click(function(){
-    $("#signUpModal").modal("toggle");
+    $("#exampleModal").modal("toggle");
     });
     $("#enter").click(function(){
         var user = {username: $("#userName").val()}

@@ -4,7 +4,7 @@
     <div class="row" id="shamefulDisplay">
         <div class="col">
         </div>
-        <div class="col-6 text-center mt-5">
+        <div class="col-6 text-center mt-5" style="display: none" id="newBugDisplay">
             <div class="card text-center" style="width: 40rem; margin: auto;">
                 <h1>You caught a bug!</h1>
                 <img src="#" id="newBugImage" width="150" style="margin: auto"/>
@@ -49,7 +49,7 @@
 <script>
 console.log("Testing" + sessionStorage.bugLabel);
     if(sessionStorage.bugLabel){
-
+        $("#newBugDisplay").show()
         $("#newBugLabel").text('"'+sessionStorage.bugLabel+'"');
         $("#newBugDescription").text('"'+sessionStorage.bugDescription+'"');
         $("#newBugDateCaught").text(sessionStorage.dateCreated)
