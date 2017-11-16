@@ -100,20 +100,22 @@ if(mm<10) {
 today = mm + '/' + dd + '/' + yyyy;
 
 $("#submitButton").click(function(){
+  //Father forgive me, for I have no idea what I'm doing
   event.preventDefault();
-  console.log("Text");
-  console.log($("#bugLabelField").text().trim());
-  console.log("Value");
-  console.log($("#bugLabelField").val().trim());
   var bug = {
-    userID: 13
+    userID: 8
     , bugLabel: $("#bugLabelField").val().trim()
     , bugDescription: $("#bugDescriptionField").val().trim()
-    , timeSpentInMinutes: x.time/60000
+    , timeSpentInMinutes: x.time()/60000
     , dateCreated: today
     , dateCompleted: today
   }
-  $.post("/bug/create", bug)
+  $.post("/bug/create", bug);
+  sessionStorage.setItem("bugLabel", bug.bugLabel);
+  sessionStorage.setItem("bugDescription", bug.bugDescription);
+  sessionStorage.setItem("dateCreated", bug.dateCreated);
+  sessionStorage.setItem("bugImage", $("#bugPicture").attr('src'));
+  window.location = "/profile";
 })
 
 var running = false;

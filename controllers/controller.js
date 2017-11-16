@@ -6,7 +6,7 @@ var path = require('path');
 var nodemailer = require('nodemailer');
 
 //Necessary to define the username, or the process.env line errors in a sec.
-var username;
+var username = "asdf";
 process.env.username = username;
 //set up e-mail configuration.
 var smtpTransport = nodemailer.createTransport({
@@ -75,7 +75,8 @@ router.get('/bugs', function(req,res){
 
 //Create user profile
 router.get("/profile", function(req,res){  
-    if(process.env.username !== undefined){
+    console.log(process.env.username)
+    if(process.env.username !== "asdf"){
         console.log("Breaks on db.User");
         db.User.findAll({
             where: {
@@ -86,9 +87,7 @@ router.get("/profile", function(req,res){
             res.render("profile",{userData: dbUser})
         })
     } else {
-        alert("You need to be signed in for the Profile to work.")
-        res.redirect("/home");
-        red.render("index", {})
+        res.render("usernameWarning", {signInWarning: "You need to have signed in to view a profile."})
         };
 });
         
@@ -129,7 +128,10 @@ router.post("/bug/create", function(req,res){
     db.UserBugs.create(req.body, function(result){
         console.loq(req.body)
         console.log(result);
-        res.redirect("/home");
+    }).then(function(createdBug){
+        console.log(createdBug);
+        console.log("this should work");
+        res.redirect('/profile');
     });
 });
 
