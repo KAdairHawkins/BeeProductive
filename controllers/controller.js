@@ -57,7 +57,6 @@ router.get('/profile/display/:userName', function(req,res){
         }
     }).then(function(dbUser){
         db.UserBugs.findAll({}).then(function(dbBug){
-      console.log("dbUser " + JSON.stringify(dbUser, null, 2));
    //   res.json(dbUser);
       res.redirect('/profile');
       res.render("profile", {userData: dbUser, bugData: dbBug});
@@ -66,10 +65,15 @@ router.get('/profile/display/:userName', function(req,res){
 });
 //Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
-    
+    db.User.findAll({
+        where: {userName: process.env.username}
+    }).then(function(dbUser){
+        console.log("dbUser");
+        console.log(dbUser)
         db.Bugs.findAll({})
         .then(function(dbBug) {
-            res.render("catchBug",{bugData: dbBug});  
+            res.render("catchBug",{bugData: dbBug, userData: dbUser});  
+        });
     });
 });
 
@@ -125,13 +129,21 @@ router.put('/bug/update', function(req,res){
 //Add a bug
 router.post("/bug/create", function(req,res){
     console.log(req.body);
-    db.UserBugs.create(req.body, function(result){
-        console.loq(req.body)
+    db.User.update(
+    {
+    wallet: req.body.wallet
+    }
+    , {
+        where: {
+        id: req.body.userID
+    }
+    }).then(function(result){
         console.log(result);
-    }).then(function(createdBug){
-        console.log(createdBug);
-        console.log("this should work");
-        res.redirect('/profile');
+        db.UserBugs.create(req.body, function(result){
+        }).then(function(createdBug){
+            //this..doesn't actually do anything. And I don't know why. I'm cheating in Javascript in catchBug.handlebars to redirect.
+            res.redirect('/profile');
+        });
     });
 });
 
@@ -166,6 +178,8 @@ router.get("/thankyou", function(req,res){
 //collect the username
 router.post("/user/select", function(req,res){
     process.env.username = req.body.username;
+    console.log("The Username:");
+    console.log(req.body);
  //   console.log("process.env.username " + process.env.username);
 })
 

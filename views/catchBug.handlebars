@@ -98,12 +98,28 @@ if(mm<10) {
 };
 
 today = mm + '/' + dd + '/' + yyyy;
-
+var pickedBug;
 $("#submitButton").click(function(){
   //Father forgive me, for I have no idea what I'm doing
   event.preventDefault();
+  var userWallet = {{userData.0.wallet}}
+  var bugValue;
+  if(pickedBug = 0){
+    bugValue = {{bugData.0.bugWorth}}
+    userWallet+=bugValue
+  } else if(pickedBug = 1){
+    bugValue = {{bugData.1.bugWorth}}
+    userWallet+=bugValue    
+  } else if(pickedBug = 2){
+    bugValue = {{bugData.2.bugWorth}}
+    userWallet+=bugValue
+  } else {
+    bugValue = {{bugData.3.bugWorth}}
+    userWallet+=bugValue
+  }
   var bug = {
-    userID: 8
+    userID: {{userData.0.id}}
+    , wallet: userWallet
     , bugLabel: $("#bugLabelField").val().trim()
     , bugDescription: $("#bugDescriptionField").val().trim()
     , timeSpentInMinutes: x.time()/60000
@@ -116,7 +132,7 @@ $("#submitButton").click(function(){
   sessionStorage.setItem("dateCreated", bug.dateCreated);
   sessionStorage.setItem("bugImage", $("#bugPicture").attr('src'));
   window.location = "/profile";
-})
+});
 
 var running = false;
 
@@ -220,12 +236,16 @@ function bugRandomizer(timePassed){
 function awardBug(bugNumber){
   console.log("The bug number: " + bugNumber)
     if(bugNumber <= 1){
+    pickedBug = 0;
     $("#bugPicture").attr("src", "{{bugData.0.bugImage}}");
   } else if(bugNumber <= 2){
+    pickedBug = 1;
     $("#bugPicture").attr("src", "{{bugData.1.bugImage}}");
   } else if(bugNumber <= 3){
+    pickedBug = 2;
     $("#bugPicture").attr("src", "{{bugData.2.bugImage}}");
   } else {
+    pickedBug = 3;
     $("#bugPicture").attr("src", "{{bugData.3.bugImage}}");
   }
 };
