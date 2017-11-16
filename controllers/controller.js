@@ -58,8 +58,8 @@ router.get('/profile/display/:userName', function(req,res){
     }).then(function(dbUser){
         db.UserBugs.findAll({}).then(function(dbBug){
    //   res.json(dbUser);
-      res.redirect('/profile');
-      res.render("profile", {userData: dbUser, bugData: dbBug});
+      //res.redirect('/profile');
+      //res.render("profile", {userData: dbUser, bugData: dbBug});
     });   
   });    
 });
@@ -81,13 +81,11 @@ router.get('/bugs', function(req,res){
 router.get("/profile", function(req,res){  
     console.log(process.env.username)
     if(process.env.username !== "asdf"){
-        console.log("Breaks on db.User");
         db.User.findAll({
             where: {
                 userName:process.env.username
             }
         }).then(function(dbUser){
-            console.log(dbUser);
             res.render("profile",{userData: dbUser})
         })
     } else {
@@ -132,6 +130,10 @@ router.post("/bug/create", function(req,res){
     db.User.update(
     {
     wallet: req.body.wallet
+    , bug1Count: req.body.bug1Count
+    , bug2Count: req.body.bug2Count
+    , bug3Count: req.body.bug3Count
+    , bug4Count: req.body.bug4Count
     }
     , {
         where: {

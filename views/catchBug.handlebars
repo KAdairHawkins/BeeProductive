@@ -104,21 +104,33 @@ $("#submitButton").click(function(){
   event.preventDefault();
   var userWallet = {{userData.0.wallet}}
   var bugValue;
+  var bug1Count = {{userData.0.bug1Count}};
+  var bug2Count = {{userData.0.bug2Count}};
+  var bug3Count = {{userData.0.bug3Count}};
+  var bug4Count = {{userData.0.bug4Count}};
   if(pickedBug = 0){
-    bugValue = {{bugData.0.bugWorth}}
+    bugValue = {{bugData.0.bugWorth}};
+    bug1Count+=1;
     userWallet+=bugValue
   } else if(pickedBug = 1){
-    bugValue = {{bugData.1.bugWorth}}
+    bugValue = {{bugData.1.bugWorth}};
+    bug2Count+=1;
     userWallet+=bugValue    
   } else if(pickedBug = 2){
-    bugValue = {{bugData.2.bugWorth}}
+    bugValue = {{bugData.2.bugWorth}};
+    bug3Count+=1;
     userWallet+=bugValue
   } else {
-    bugValue = {{bugData.3.bugWorth}}
+    bugValue = {{bugData.3.bugWorth}};
+    bug4Count+=1;
     userWallet+=bugValue
   }
   var bug = {
     userID: {{userData.0.id}}
+    , bug1Count: bug1Count
+    , bug2Count: bug2Count
+    , bug3Count: bug3Count
+    , bug4Count: bug4Count
     , wallet: userWallet
     , bugLabel: $("#bugLabelField").val().trim()
     , bugDescription: $("#bugDescriptionField").val().trim()
