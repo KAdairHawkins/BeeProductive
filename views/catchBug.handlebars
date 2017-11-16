@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-body">
                       <form class="form-horizontal" action="/bug/create" method="POST">
-                        <img src = "#"  id="bugPicture"/>
+                        <img src = "#"  id="bugPicture" style="width: 60%"/>
                         <div class="form-group">
                           <label for="nameInput">Name</label>
                           <input type="text" class="form-control" name="bugLabel" placeholder="CSS Lost a Pixel" id="bugLabelField">
@@ -108,10 +108,9 @@ var userWallet = {{userData.0.wallet}}
 $("#submitButton").click(function(){
   //Father forgive me, for I have no idea what I'm doing
   event.preventDefault();
-  
-  var bugValue;
-  
   $.post("/bug/create", bug);
+  bug.bugLabel=$("#bugLabelField").val().trim();
+  bug.bugDescription=$("#bugDescriptionField").val().trim();
   sessionStorage.setItem("bugLabel", bug.bugLabel);
   sessionStorage.setItem("bugDescription", bug.bugDescription);
   sessionStorage.setItem("dateCreated", bug.dateCreated);

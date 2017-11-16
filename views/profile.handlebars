@@ -47,7 +47,9 @@
     </div>
 </div>
 <script>
+console.log("Testing" + sessionStorage.bugLabel);
     if(sessionStorage.bugLabel){
+
         $("#newBugLabel").text('"'+sessionStorage.bugLabel+'"');
         $("#newBugDescription").text('"'+sessionStorage.bugDescription+'"');
         $("#newBugDateCaught").text(sessionStorage.dateCreated)
