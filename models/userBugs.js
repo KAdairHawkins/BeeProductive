@@ -5,8 +5,9 @@ module.exports = function(sequelize, DataTypes) {
     timeSpentInMinutes: DataTypes.INTEGER,
     dateCreated: DataTypes.DATE,
     dateCompleted: DataTypes.DATE
+
   },
-   {timestamps: false});
+  {timestamps: false});  
   
   UserBugs.associate = function(models) {
     // A UserBug can't be created without a User due to the foreign key constraint
@@ -15,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });	
-  };
-  //Prevents Sequelize from breaking when it tries to pull a "time created" column and can't find one.
+  };  
+  
   return UserBugs;
 };
