@@ -4,6 +4,7 @@ var db = require("../models");
 var router = express.Router();
 var path = require('path');
 var nodemailer = require('nodemailer');
+var userid;                                                    // added km
 
 //Necessary to define the username, or the process.env line errors in a sec.
 var username = "asdf";
@@ -58,8 +59,8 @@ router.get('/profile/display/:userName', function(req,res){
     }).then(function(dbUser){
         db.UserBugs.findAll({}).then(function(dbBug){
    //   res.json(dbUser);
-      //res.redirect('/profile');
-      //res.render("profile", {userData: dbUser, bugData: dbBug});
+      res.redirect('/profile');
+      res.render("profile", {userData: dbUser, bugData: dbBug});
     });   
   });    
 });
@@ -70,6 +71,8 @@ router.get('/bugs', function(req,res){
     }).then(function(dbUser){
         console.log("dbUser");
         console.log(dbUser)
+		userid = dbUser[0].id;                           //added km
+
         db.Bugs.findAll({})
         .then(function(dbBug) {
             res.render("catchBug",{bugData: dbBug, userData: dbUser});  
@@ -81,11 +84,13 @@ router.get('/bugs', function(req,res){
 router.get("/profile", function(req,res){  
     console.log(process.env.username)
     if(process.env.username !== "asdf"){
+        console.log("Breaks on db.User");
         db.User.findAll({
             where: {
                 userName:process.env.username
             }
         }).then(function(dbUser){
+            console.log(dbUser);
             res.render("profile",{userData: dbUser})
         })
     } else {
@@ -130,10 +135,6 @@ router.post("/bug/create", function(req,res){
     db.User.update(
     {
     wallet: req.body.wallet
-    , bug1Count: req.body.bug1Count
-    , bug2Count: req.body.bug2Count
-    , bug3Count: req.body.bug3Count
-    , bug4Count: req.body.bug4Count
     }
     , {
         where: {
@@ -141,7 +142,10 @@ router.post("/bug/create", function(req,res){
     }
     }).then(function(result){
         console.log(result);
+	    req.body.UserId = userid;                           // added km
+
         db.UserBugs.create(req.body, function(result){
+			
         }).then(function(createdBug){
             //this..doesn't actually do anything. And I don't know why. I'm cheating in Javascript in catchBug.handlebars to redirect.
             res.redirect('/profile');
@@ -192,17 +196,11 @@ router.post("/user/create", function(req,res){
         console.log(result);
         res.redirect("/");
     });
-    db.User.findAll({
-            where: {
-                userName:process.env.username
-            }
-        }).then(function(dbUser){
-            res.render("profile", {userData: dbUser});
+    res.json(req.body);
     console.log("User ID: " + req.body.name);
     console.log("email: " + req.body.email);
     console.log("profile: " + req.body.profile);
-    })
-});
+})
 
 //Update a user
 router.put("/user/update", function(req,res){

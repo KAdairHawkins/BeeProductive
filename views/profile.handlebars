@@ -1,24 +1,59 @@
 <script src="https://use.fontawesome.com/edc8a1b9d1.js"></script>
 <link rel="stylesheet" href="/public/Assets/css/bootstrap-social.css">
 <div class="container text-center">
-  <div class="row">
-    <div class="col">
-    </div>
-    <div class="col-6 text-center mt-5">
-        <div class="card text-center" style="width: 40rem; margin: auto;">
-          <ul class="list-group list-group-flush">
-            {{#each userData}}  
-                <li class="list-group-item">Username: {{userName}}</li>
-                <li class="list-group-item">Number of Bug 1: {{bug1Count}}</li>
-                <li class="list-group-item">Number of Bug 3: {{bug3Count}}</li>
-                <li class="list-group-item">Number of Bug 4: {{bug4Count}}</li>
-                <li class="list-group-item">Available Wallet: {{wallet}}</li>
-                <li class="list-group-item">Profile: {{profile}}</li>
-            {{/each}}
-          </ul>
+    <div class="row" id="shamefulDisplay">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center mt-5" style="display: none" id="newBugDisplay">
+            <div class="card text-center" style="width: 40rem; margin: auto;">
+                <h1>You caught a bug!</h1>
+                <img src="#" id="newBugImage" width="150" style="margin: auto"/>
+              <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Bug Label: <span id="newBugLabel"></span></li>
+                    <li class="list-group-item">Bug Description: <span id="newBugDescription"></span></li>
+                    <li class="list-group-item">Date Caught: <span id="newBugDateCaught"></span></li>
+              </ul>
+            </div>
+        </div>
+        <div class="col">
         </div>
     </div>
-    <div class="col">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6 text-center mt-5">
+            <div class="card text-center" style="width: 40rem; margin: auto;">
+              <ul class="list-group list-group-flush">
+                {{#each userData}}  
+                    <li class="list-group-item">Username: {{userName}}</li>
+                    <li class="list-group-item">Cockroaches: {{bug1Count}}</li>
+                    <li class="list-group-item">Ants: {{bug2Count}}</li>
+                    <li class="list-group-item">Ladybugs: {{bug3Count}}</li>
+                    <li class="list-group-item">Mosquitos: {{bug4Count}}</li>
+                    <li class="list-group-item">Money: {{wallet}}</li>
+                    <li class="list-group-item">Profile: {{profile}}</li>
+                {{/each}}
+              </ul>
+              <ul class="list-group list-group-flush">
+                {{#each bugCaught}}
+                <li class="list-group-item">Bug Name: {{bugLabel}}</li>
+                <li class="list-group-item">Bug Description: {{bugDescription}}</li>
+                {{/each}}
+              </ul>
+            </div>
+        </div>
+        <div class="col">
+        </div>
     </div>
-  </div>
 </div>
+<script>
+console.log("Testing" + sessionStorage.bugLabel);
+    if(sessionStorage.bugLabel){
+        $("#newBugDisplay").show()
+        $("#newBugLabel").text('"'+sessionStorage.bugLabel+'"');
+        $("#newBugDescription").text('"'+sessionStorage.bugDescription+'"');
+        $("#newBugDateCaught").text(sessionStorage.dateCreated)
+        $("#newBugImage").attr('src', sessionStorage.bugImage)
+    }
+    console.log("foo")
+</script>
