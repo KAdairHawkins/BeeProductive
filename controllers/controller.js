@@ -66,10 +66,19 @@ router.get('/profile/display/:userName', function(req,res){
 });
 //Serves the "Catch a bug!" page
 router.get('/bugs', function(req,res){
+    
+        db.Bugs.findAll({})
+        .then(function(dbBug) {
+            res.render("catchBug",{bugData: dbBug});  
+    });
+});
+
+//Create user profile
+router.get("/profile", function(req,res){  
     if(process.env.username !== undefined){
         db.User.findAll({
             where: {
-                userName: process.env.username
+                userName:process.env.username
             }
         }).then(function(dbUser){
             console.log(dbUser)
@@ -78,28 +87,25 @@ router.get('/bugs', function(req,res){
                     userId: dbUser.id
                 }
             }).then(function(dbUserBugs){
-                
+                console.log(dbUserBugs);
+                db.Bugs.findAll({
+                    where: {
+                        id: dbUserBugs.bugId
+                    }
+                }).then(function(dbBugs){
+                    console.log("dbBugs");
+                    console.log(dbBugs);
+                    res.render("profile",{userData: dbUser, bugData: dbBugs, userBugData: dbUserBugs});
+                })
             })
-        db.Bugs.findAll({})
-        .then(function(dbBug) {
-            res.render("catchBug",{bugData: dbBug});  
-        });
         })
-    }
-})
-
-//Create user profile
-router.get("/profile", function(req,res){  
-    db.User.findAll({where: {userName:process.env.username}})
-    .then(function(dbUser){
-        if (dbUser = []){
-            //toDo: Create a view that pops an error message
-            res.send("Well that didn't work");
-        } else {
-        console.log(dbUser);
-        res.render("profile",{userData: dbUser});}
-    });
+    } else {
+        alert("You need to be signed in for the Profile to work.")
+        res.redirect("/home");
+        red.render("index", {})
+        };
 });
+        
 
 //get all bugs
 router.get("/api/bugs/", function(req, res) {
