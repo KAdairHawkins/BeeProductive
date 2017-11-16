@@ -99,51 +99,24 @@ if(mm<10) {
 
 today = mm + '/' + dd + '/' + yyyy;
 var pickedBug;
+var bug ={};
+var bug1Count = {{userData.0.bug1Count}};
+var bug2Count = {{userData.0.bug2Count}};
+var bug3Count = {{userData.0.bug3Count}};
+var bug4Count = {{userData.0.bug4Count}};
+var userWallet = {{userData.0.wallet}}
 $("#submitButton").click(function(){
   //Father forgive me, for I have no idea what I'm doing
   event.preventDefault();
-  var userWallet = {{userData.0.wallet}}
+  
   var bugValue;
-  var bug1Count = {{userData.0.bug1Count}};
-  var bug2Count = {{userData.0.bug2Count}};
-  var bug3Count = {{userData.0.bug3Count}};
-  var bug4Count = {{userData.0.bug4Count}};
-  if(pickedBug = 0){
-    bugValue = {{bugData.0.bugWorth}};
-    bug1Count+=1;
-    userWallet+=bugValue
-  } else if(pickedBug = 1){
-    bugValue = {{bugData.1.bugWorth}};
-    bug2Count+=1;
-    userWallet+=bugValue    
-  } else if(pickedBug = 2){
-    bugValue = {{bugData.2.bugWorth}};
-    bug3Count+=1;
-    userWallet+=bugValue
-  } else {
-    bugValue = {{bugData.3.bugWorth}};
-    bug4Count+=1;
-    userWallet+=bugValue
-  }
-  var bug = {
-    userID: {{userData.0.id}}
-    , bug1Count: bug1Count
-    , bug2Count: bug2Count
-    , bug3Count: bug3Count
-    , bug4Count: bug4Count
-    , wallet: userWallet
-    , bugLabel: $("#bugLabelField").val().trim()
-    , bugDescription: $("#bugDescriptionField").val().trim()
-    , timeSpentInMinutes: x.time()/60000
-    , dateCreated: today
-    , dateCompleted: today
-  }
+  
   $.post("/bug/create", bug);
   sessionStorage.setItem("bugLabel", bug.bugLabel);
   sessionStorage.setItem("bugDescription", bug.bugDescription);
   sessionStorage.setItem("dateCreated", bug.dateCreated);
   sessionStorage.setItem("bugImage", $("#bugPicture").attr('src'));
-  window.location = "/profile";
+  setTimeout(function(){window.location = "/profile"},200);
 });
 
 var running = false;
@@ -248,17 +221,38 @@ function bugRandomizer(timePassed){
 function awardBug(bugNumber){
   console.log("The bug number: " + bugNumber)
     if(bugNumber <= 1){
-    pickedBug = 0;
+    bugValue = {{bugData.0.bugWorth}};
+    bug1Count+=1;
+    userWallet+=bugValue
     $("#bugPicture").attr("src", "{{bugData.0.bugImage}}");
   } else if(bugNumber <= 2){
-    pickedBug = 1;
+    bugValue = {{bugData.1.bugWorth}};
+    bug2Count+=1;
+    userWallet+=bugValue  
     $("#bugPicture").attr("src", "{{bugData.1.bugImage}}");
   } else if(bugNumber <= 3){
-    pickedBug = 2;
+    bugValue = {{bugData.2.bugWorth}};
+    bug3Count+=1;
+    userWallet+=bugValue
     $("#bugPicture").attr("src", "{{bugData.2.bugImage}}");
   } else {
-    pickedBug = 3;
+    bugValue = {{bugData.3.bugWorth}};
+    bug4Count+=1;
+    userWallet+=bugValue
     $("#bugPicture").attr("src", "{{bugData.3.bugImage}}");
+  }
+  bug = {
+    userID: {{userData.0.id}}
+    , bug1Count: bug1Count
+    , bug2Count: bug2Count
+    , bug3Count: bug3Count
+    , bug4Count: bug4Count
+    , wallet: userWallet
+    , bugLabel: $("#bugLabelField").val().trim()
+    , bugDescription: $("#bugDescriptionField").val().trim()
+    , timeSpentInMinutes: x.time()/60000
+    , dateCreated: today
+    , dateCompleted: today
   }
 };
 
