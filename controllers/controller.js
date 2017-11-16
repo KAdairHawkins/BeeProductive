@@ -76,28 +76,14 @@ router.get('/bugs', function(req,res){
 //Create user profile
 router.get("/profile", function(req,res){  
     if(process.env.username !== undefined){
+        console.log("Breaks on db.User");
         db.User.findAll({
             where: {
                 userName:process.env.username
             }
         }).then(function(dbUser){
-            console.log(dbUser)
-            db.UserBugs.findAll({
-                where: {
-                    userId: dbUser.id
-                }
-            }).then(function(dbUserBugs){
-                console.log(dbUserBugs);
-                db.Bugs.findAll({
-                    where: {
-                        id: dbUserBugs.bugId
-                    }
-                }).then(function(dbBugs){
-                    console.log("dbBugs");
-                    console.log(dbBugs);
-                    res.render("profile",{userData: dbUser, bugData: dbBugs, userBugData: dbUserBugs});
-                })
-            })
+            console.log(dbUser);
+            res.render("profile",{userData: dbUser})
         })
     } else {
         alert("You need to be signed in for the Profile to work.")
