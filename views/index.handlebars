@@ -103,7 +103,13 @@
     $("#exampleModal").modal("show");
   })
   $("#enter").click(function(){
-    var user = {username: $("#userName").val()}
+    var user = {username: $("#userName").val().trim()}
+    if (user.username.indexOf(';') != -1){
+      console.log("foo")
+      $("#exampleModal").modal("toggle");
+      alert("Please don't use semi-colons")
+      return;
+    }
     $("#exampleModal").modal("toggle");
     console.log("Click function works");
     $.post("/user/select", user, function(data) {

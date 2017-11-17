@@ -185,9 +185,47 @@ router.post("/user/select", function(req,res){
  //   console.log("process.env.username " + process.env.username);
 })
 
+router.get("/shop", function(req,res){
+    if(process.env.username !== "asdf"){
+        db.User.findAll({
+            where: {
+                userName:process.env.username
+            }
+        }).then(function(dbUser){
+            res.render("shop",{userData: dbUser})
+        })
+    } else {
+        res.render("usernameWarning", {signInWarning: "You need to have signed in to view the shop."})
+        };
+});
+
+router.post("/shop/sell", function(req,res){
+    console.log(req.body.bugBucks)
+        db.User.update(
+        {
+        wallet: req.body.wallet
+        , bug1Count: req.body.bug1Count
+        , bug2Count: req.body.bug2Count
+        , bug3Count: req.body.bug3Count
+        , bug4Count: req.body.bug4Count
+        }
+        , {
+            where: {
+            id: req.body.userID
+        }
+    })
+});
+
+router.post("/shop/buy", function(req,res){
+    console.log(req.body.bugBucks)
+})
+
 //Add a user
 router.post("/user/create", function(req,res){
     console.log("creating a user");
+    if (req.body.userName.indexOf(';') != -1 || req.body.email.indexOf(';') != -1 || req.body.description.indexOf(';') != -1){
+        res.send("No. Just no.");
+    }
     db.User.create(req.body, function(result){
         console.log(result);
         res.redirect("/");

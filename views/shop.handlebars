@@ -1,1 +1,43 @@
-shop.handlebars
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-5 text-center mt-5">
+            <div class="card text-center" style="width: 40rem; margin: auto; background-color:#aaa">
+            <h2 class="card-header">Sell a Bug</h2>
+              <ul class="list-group list-group-flush">
+                <button class="btn btn-warning sell" data-bucks="5" data-bug="bug1count"><li class="list-group-item">Sell a Cockroach (&#3647;5)</li></button>
+                <button class="btn btn-warning sell" data-bucks="10" data-bug="bug2count"><li class="list-group-item">Sell an Ant (&#3647;10)</li></button>
+                <button class="btn btn-warning sell" data-bucks="20" data-bug="bug3count"><li class="list-group-item">Sell a Ladybug (&#3647;20)</li></button>
+                <button class="btn btn-warning sell" data-bucks="30" data-bug="bugcount"><li class="list-group-item">Sell a Fly (&#3647;30)</li></button>
+              </ul>
+            </div>
+        </div>
+        <div class="col-5 text-center mt-5">
+            <div class="card text-center" style="width: 40rem; margin: auto; background-color:#aaa">
+            <h2 class="card-header">Power Up</h2>
+              <ul class="list-group list-group-flush">
+                <button class="btn btn-info buy" data-bucks="10" style="color: #000"><li class="list-group-item">Catch Rarer Bugs! (&#3647;10)</li></button>
+                <button class="btn btn-info buy" data-bucks="20" style="color: #000"><li class="list-group-item">Bonus Bugs! (&#3647;20)</li></button>
+                <button class="btn btn-info buy" data-bucks="30" style="color: #000"><li class="list-group-item">Buy a Hat! (&#3647;30)</li></button>
+                <button class="btn btn-info buy" data-bucks="40" style="color: #000"><li class="list-group-item">Donate a Bee! (&#3647;40)</li></button>
+              </ul>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script>
+    $(".sell").click(function(event){
+        var sell = {
+            bugBucks:$(this).data('bucks')}
+        $.post('/shop/sell', sell);
+    })
+    $(".buy").click(function(event){
+        var buy = {
+            bugBucks:$(this).data('bucks')
+        }
+        $.post('/shop/buy', buy);
+    })
+</script>
