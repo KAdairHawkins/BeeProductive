@@ -223,8 +223,8 @@ router.post("/shop/buy", function(req,res){
 //Add a user
 router.post("/user/create", function(req,res){
     console.log("creating a user");
-    process.env.username = req.body.userName
-    console.log(req.body)
+    process.env.username = req.body.userName;
+    console.log(process.env.username)
     if (req.body.userName.indexOf(';') != -1 || req.body.email.indexOf(';') != -1 || req.body.profile.indexOf(';') != -1){
         res.render("usernameWarning", {signInWarning: "Please don't use semicolons."});
         return;
@@ -232,13 +232,14 @@ router.post("/user/create", function(req,res){
     db.User.create(req.body, function(result){
         console.log(result);
         res.redirect("/");
+    }).then(function(foo){
+        db.User.findAll({
+                where: {
+                    userName:process.env.username
+                }
+            }).then(function(dbUser){
+                res.render("profile", {userData: dbUser});
     });
-    db.User.findAll({
-            where: {
-                userName:process.env.username
-            }
-        }).then(function(dbUser){
-            res.render("profile", {userData: dbUser});
     console.log("User ID: " + req.body.name);
     console.log("email: " + req.body.email);
     console.log("profile: " + req.body.profile);
