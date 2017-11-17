@@ -224,8 +224,8 @@ router.post("/shop/buy", function(req,res){
 router.post("/user/create", function(req,res){
     console.log("creating a user");
     if (req.body.userName.indexOf(';') != -1 || req.body.email.indexOf(';') != -1 || req.body.description.indexOf(';') != -1){
-        res.send("No. Just no.");
-        break;
+        res.render("usernameWarning", {signInWarning: "Please don't use semicolons."});
+        return;
     }
     db.User.create(req.body, function(result){
         console.log(result);
