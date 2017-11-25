@@ -60,7 +60,8 @@
 </div>
 <script>
     $("#signInButton").click(function(){
-    $("#exampleModal").modal("toggle");
+        $("#exampleModal").modal("toggle");
+        $(this).css('display', 'none');
     });
     $("#enter").click(function(){
         var user = {username: $("#userName").val()}
