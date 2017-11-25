@@ -15,6 +15,10 @@
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
+    "username": "rl7nd52i4k5e4sgp",
+    "password": "j45hg59qsvmex1aq",
+    "database": "h6vb01bhgckx8c9e",
+    "host": "x3ztd854gaa7on6s.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
